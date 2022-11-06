@@ -1,0 +1,13 @@
+# Starfinder: Base generic
+&{template:sf_generic} {{name=@{character_name}}} {{characterid=@{character_id}}} {{title=Trick Attack}} {{r1name=r1}} {{r1=[[1d4]]}} {{notes=notes}} {{buttons0=button}}
+
+# Starfinder: Weapon attacher Reload button.
+{{buttons0=[Reload](!reload @{character_id} repeating_attack_@{id}_ammo &#91;&#91;&#64;{@{character_name}|repeating_attack_@{id}_ammo|max}-&#64;{@{character_name}|repeating_attack_@{id}_ammo}&#93;&#93; @{ammo_type})}}
+# Starfinder: Weapon attacher subtract spent ammo.
+!ammo @{character_id} repeating_attack_@{id}_ammo [[-@{usage}*{@{full_attack_query}*@{full_attack_number},1}kh1]] @{ammo_type}
+
+# Starfinder: Forum full attack usage query.
+[[[[-@{usage}]]*{[[@{full_attack_query}*@{full_attack_number}]]d1,[[1]]d1}kh1]]
+
+# Starfinder: Personal trick attack macro.
+@{whisper_state}&{template:sf_attack} {{name=@{character_name}}} {{characterid=@{character_id}}} {{title=Trick Attack}} {{r1name=Succeeds if CR<[20+@{class_1_level}] }} {{r1=[[?{Skill|Bluff, d20+@{bluff}|Intimidate,d20+@{intimidate}|Stealth,d20+@{Stealth}}]]}} {{damage1type=Additional damage}} {{damage1=[[[[ [[{@{class_1_level},5}>5]]+floor({@{class_1_level}-3,0}kh1/2)]]d[[4*{@{class_1_level},3}>3)]] ]]}} {{rightbanner=Operative talent}} {{notes=Target is flat-footed if successful}}
